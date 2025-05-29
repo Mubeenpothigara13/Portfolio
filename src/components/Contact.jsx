@@ -37,7 +37,7 @@ function Contact () {
             <ul>
                 <li><NavLink to="/">home</NavLink></li>
                 <li><NavLink to="/about">about</NavLink></li>
-                <li><NavLink to="/projects">projects</NavLink></li>
+                <li><NavLink to="/project">projects</NavLink></li>
                 <li><NavLink to="/contact">contact</NavLink></li>
             </ul>
 
