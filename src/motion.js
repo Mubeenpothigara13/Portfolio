@@ -1,37 +1,19 @@
+export const EASE = [0.22, 1, 0.36, 1];
+export const EASE_IN_OUT = [0.76, 0, 0.24, 1];
+
 export const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: EASE } },
 };
 
 export const fadeIn = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.8 } },
+  show: { opacity: 1, transition: { duration: 1, ease: EASE } },
 };
 
-export const slideLeft = {
-  hidden: { opacity: 0, x: -60 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-export const slideRight = {
-  hidden: { opacity: 0, x: 60 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
-};
-
-export const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
-export const stagger = (staggerChildren = 0.12, delayChildren = 0.1) => ({
+export const stagger = (staggerChildren = 0.08, delayChildren = 0) => ({
   hidden: {},
-  show: {
-    transition: { staggerChildren, delayChildren },
-  },
+  show: { transition: { staggerChildren, delayChildren } },
 });
 
-export const viewportOnce = { once: true, amount: 0.2 };
+export const viewportOnce = { once: true, amount: 0.25 };

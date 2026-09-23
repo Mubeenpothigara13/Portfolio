@@ -1,48 +1,59 @@
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { fadeUp, viewportOnce } from "./motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { NAV_LINKS, SOCIALS } from "./lib/nav";
+import { scrollToSection } from "./lib/scroll";
 
 function Footer() {
-  return (
-    <motion.footer
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
-      className="bg-[#0c0b1f] text-gray-300 py-6 px-5 border-t border-white/5"
-    >
-      <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm">
-          Mubeen{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent font-semibold">
-            Pothigara
-          </span>
-          <span className="ml-2 text-gray-500">
-            &copy; {new Date().getFullYear()}. All Rights Reserved.
-          </span>
-        </p>
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-40%", "0%"]);
 
-        <div className="flex gap-4 text-lg">
-          {[
-            { icon: FaGithub, href: "https://github.com/Mubeenpothigara13", label: "GitHub" },
-            { icon: FaLinkedin, href: "https://www.linkedin.com/", label: "LinkedIn" },
-            { icon: FaInstagram, href: "https://www.instagram.com/", label: "Instagram" },
-          ].map(({ icon: Icon, href, label }) => (
-            <motion.a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-              whileHover={{ y: -3, scale: 1.15 }}
-              className="hover:text-teal-300 transition-colors"
-            >
-              <Icon />
-            </motion.a>
-          ))}
+  return (
+    <footer ref={ref} className="relative overflow-hidden border-t border-white/10 bg-ink px-5 pt-16 md:px-10">
+      <div className="mx-auto grid max-w-[1600px] gap-10 text-sm md:grid-cols-4">
+        <div className="md:col-span-2">
+          <p className="max-w-xs text-mute">
+            Designed &amp; built by Mubeen Pothigara with React, Three.js, GSAP and a lot of chai.
+          </p>
         </div>
+        <ul className="space-y-2">
+          {NAV_LINKS.map((l) => (
+            <li key={l.id}>
+              <button onClick={() => scrollToSection(l.id)} className="text-bone/80 transition-colors hover:text-accent">
+                {l.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <ul className="space-y-2">
+          {SOCIALS.map((s) => (
+            <li key={s.label}>
+              <a href={s.href} target="_blank" rel="noreferrer" className="text-bone/80 transition-colors hover:text-accent">
+                {s.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <button onClick={() => scrollToSection("home")} className="mt-4 text-accent">
+              Back to top ↑
+            </button>
+          </li>
+        </ul>
       </div>
-    </motion.footer>
+
+      <motion.p
+        style={{ y }}
+        aria-hidden
+        className="mt-16 select-none whitespace-nowrap text-center font-display text-[21vw] font-bold leading-[0.8] tracking-tightest text-bone"
+      >
+        MUBEEN<span className="text-accent">.</span>
+      </motion.p>
+
+      <div className="mx-auto flex max-w-[1600px] justify-between border-t border-white/10 py-5 text-xs uppercase tracking-[0.2em] text-mute">
+        <span>© {new Date().getFullYear()} Mubeen Pothigara</span>
+        <span>Gujarat, India</span>
+      </div>
+    </footer>
   );
 }
 

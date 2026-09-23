@@ -1,172 +1,131 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { fadeUp, slideLeft, slideRight, stagger, viewportOnce } from "../motion";
+import { TbArrowUpRight } from "react-icons/tb";
+import { EMAIL, SOCIALS } from "../lib/nav";
+import { fadeUp, stagger, viewportOnce } from "../motion";
+import SectionLabel from "./ui/SectionLabel";
+import SplitReveal from "./ui/SplitReveal";
+import Magnetic from "./ui/Magnetic";
 
-const EMAIL = "mubeenpothigara2002@gmail.com";
+function Field({ label, as: Tag = "input", ...props }) {
+  return (
+    <label className="group block border-b border-white/15 pb-3 transition-colors focus-within:border-accent">
+      <span className="text-xs uppercase tracking-[0.2em] text-mute">{label}</span>
+      <Tag
+        {...props}
+        className="mt-2 block w-full resize-none bg-transparent text-xl text-bone outline-none placeholder:text-white/20 md:text-2xl"
+      />
+    </label>
+  );
+}
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const send = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `Portfolio contact from ${form.name || "visitor"}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
+    const subject = encodeURIComponent(`Portfolio contact from ${form.name || "visitor"}`);
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
 
-  const inputClass =
-    "mt-2 w-full sm:w-[320px] p-4 rounded-full bg-[rgba(18,17,39,0.259)] border-2 border-teal-300/70 text-white outline-none transition-colors focus:border-teal-200";
-
-  const navClass =
-    "relative inline-block hover:text-teal-300 transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-teal-300 after:transition-all after:duration-300 hover:after:w-full";
-
   return (
-    <section className="relative bg-[rgba(18,17,39,0.929)] text-white py-24 px-6 md:px-20 overflow-hidden">
-      <motion.div
-        aria-hidden
-        className="absolute top-20 -right-24 h-72 w-72 rounded-full bg-teal-400/10 blur-3xl"
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
+    <section id="contact" className="relative overflow-hidden bg-[#0e0e10] px-5 py-28 md:px-10 md:py-40">
+      <div className="pointer-events-none absolute -right-40 top-20 h-[30rem] w-[30rem] rounded-full bg-accent/10 blur-[120px]" />
 
-      <div className="relative flex flex-col lg:flex-row justify-around items-start gap-12">
-        <motion.form
-          onSubmit={send}
-          variants={slideLeft}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="space-y-6 w-full lg:w-auto"
-        >
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl tracking-wide">
-            Let&apos;s make something{" "}
-            <span className="bg-gradient-to-r from-teal-300 to-cyan-400 bg-clip-text text-transparent">
-              amazing together.
-            </span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-3xl tracking-wide">
-            Start by <span className="text-teal-300">saying hi</span>
-          </motion.p>
+      <div className="relative mx-auto max-w-[1600px]">
+        <SectionLabel no="05">Contact</SectionLabel>
 
-          <motion.div variants={stagger(0.08)} className="space-y-4">
-            <motion.div variants={fadeUp}>
-              <label className="text-lg font-medium">Name:</label>
-              <br />
-              <input
-                type="text"
-                required
-                value={form.name}
-                onChange={update("name")}
-                placeholder="Your Name"
-                className={inputClass}
-              />
-            </motion.div>
+        <SplitReveal
+          lines={["Let's build", { text: "something great.", className: "font-serif italic font-normal text-accent" }]}
+          className="mt-6 font-display text-[13vw] font-semibold leading-[0.9] tracking-tightest text-bone md:text-[9vw]"
+        />
 
-            <motion.div variants={fadeUp}>
-              <label className="text-lg font-medium">Email address:</label>
-              <br />
-              <input
+        <div className="mt-20 grid gap-16 md:grid-cols-12">
+          <motion.form
+            onSubmit={send}
+            variants={stagger(0.1)}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="flex flex-col gap-10 md:col-span-7"
+          >
+            <motion.div variants={fadeUp} className="grid gap-10 sm:grid-cols-2">
+              <Field label="Your name" required value={form.name} onChange={update("name")} placeholder="John Doe" />
+              <Field
+                label="Your email"
                 type="email"
                 required
                 value={form.email}
                 onChange={update("email")}
-                placeholder="Your Email"
-                className={inputClass}
+                placeholder="john@company.com"
               />
             </motion.div>
-
             <motion.div variants={fadeUp}>
-              <label className="text-lg font-medium">Message:</label>
-              <br />
-              <textarea
+              <Field
+                label="Tell me about your project"
+                as="textarea"
+                rows={3}
                 required
-                rows={4}
                 value={form.message}
                 onChange={update("message")}
-                placeholder="Write your message here"
-                className="mt-2 w-full sm:w-[320px] p-4 rounded-3xl bg-[rgba(18,17,39,0.259)] border-2 border-teal-300/70 text-white outline-none resize-none transition-colors focus:border-teal-200"
+                placeholder="I need an AI dashboard for…"
               />
             </motion.div>
+            <motion.div variants={fadeUp}>
+              <Magnetic strength={0.4}>
+                <button
+                  type="submit"
+                  className="group flex h-36 w-36 flex-col items-center justify-center rounded-full bg-accent text-ink transition-transform duration-500 hover:scale-105 md:h-44 md:w-44"
+                >
+                  <TbArrowUpRight className="text-3xl transition-transform duration-500 group-hover:rotate-45" />
+                  <span className="mt-1 text-sm font-semibold uppercase tracking-widest">Send</span>
+                </button>
+              </Magnetic>
+            </motion.div>
+          </motion.form>
 
-            <motion.button
-              type="submit"
-              variants={fadeUp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative text-lg text-teal-300 px-3 py-1 mt-3 transition-colors duration-300 hover:text-teal-200 group"
-            >
-              Send →
-              <span className="absolute bottom-0 left-2 w-0 h-[2px] bg-teal-300 transition-all duration-300 group-hover:w-[90%]"></span>
-            </motion.button>
-          </motion.div>
-        </motion.form>
-
-        <motion.div
-          variants={slideRight}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          className="max-w-md space-y-6 w-full lg:w-auto"
-        >
-          <motion.h1 variants={fadeUp} className="text-gray-400 tracking-wider text-2xl">
-            INFORMATION.
-          </motion.h1>
-
-          <motion.p variants={fadeUp} className="text-gray-400 text-base tracking-wider pt-2">
-            Near Madina Masjid, HMT, Gujarat-383001
-          </motion.p>
-
-          <motion.a
-            variants={fadeUp}
-            href={`mailto:${EMAIL}`}
-            className="text-2xl tracking-wider pt-2 pb-5 block hover:text-teal-300 transition-colors break-all"
+          <motion.div
+            variants={stagger(0.1)}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewportOnce}
+            className="flex flex-col gap-10 md:col-span-4 md:col-start-9"
           >
-            {EMAIL}
-          </motion.a>
-
-          <motion.div variants={fadeUp} className="flex gap-5 text-2xl text-gray-300 pt-2">
-            {[
-              { icon: FaGithub, href: "https://github.com/Mubeenpothigara13", label: "GitHub" },
-              { icon: FaLinkedin, href: "https://www.linkedin.com/", label: "LinkedIn" },
-              { icon: FaInstagram, href: "https://www.instagram.com/", label: "Instagram" },
-            ].map(({ icon: Icon, href, label }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                whileHover={{ y: -4, scale: 1.15 }}
-                className="hover:text-teal-300 transition-colors"
+            <motion.div variants={fadeUp}>
+              <p className="text-xs uppercase tracking-[0.2em] text-mute">Email</p>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="mt-2 block break-all font-display text-xl text-bone transition-colors hover:text-accent md:text-2xl"
               >
-                <Icon />
-              </motion.a>
-            ))}
+                {EMAIL}
+              </a>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <p className="text-xs uppercase tracking-[0.2em] text-mute">Location</p>
+              <p className="mt-2 text-lg text-bone">Himmatnagar, Gujarat, India</p>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <p className="text-xs uppercase tracking-[0.2em] text-mute">Socials</p>
+              <ul className="mt-3 border-t border-white/10">
+                {SOCIALS.map((s) => (
+                  <li key={s.label}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex items-center justify-between border-b border-white/10 py-4 text-lg text-bone"
+                    >
+                      <span className="transition-transform duration-500 group-hover:translate-x-2">{s.label}</span>
+                      <TbArrowUpRight className="transition-transform duration-500 group-hover:rotate-45 group-hover:text-accent" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </motion.div>
-
-          <motion.ul variants={stagger(0.06)} className="space-y-4 text-lg pt-4">
-            {[
-              { to: "/", label: "home" },
-              { to: "/About", label: "about" },
-              { to: "/Project", label: "projects" },
-              { to: "/Contact", label: "contact" },
-            ].map((l) => (
-              <motion.li key={l.to} variants={fadeUp}>
-                <NavLink to={l.to} className={navClass}>
-                  {l.label}
-                </NavLink>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

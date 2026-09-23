@@ -1,0 +1,76 @@
+const GITHUB = "https://github.com/Mubeenpothigara13";
+
+// `visual` picks the illustrated mockup in ProjectVisual.jsx.
+// Add `img: "/your-screenshot.png"` to show a real screenshot instead,
+// and `live: "https://..."` to show a Live link.
+export const featured = [
+  {
+    id: "bizpilot",
+    index: "01",
+    title: "BizPilot AI",
+    category: "AI Business Software",
+    year: "2025",
+    desc: "AI-powered business software with built-in data science. It analyses stock, sales and trends in real time, forecasts demand and suggests what to restock and sell, so running inventory takes one dashboard instead of five spreadsheets.",
+    tags: ["React", "Node.js", "Python", "Data Science", "AI"],
+    visual: "dashboard",
+    color: "#c9f158",
+    url: GITHUB,
+  },
+  {
+    id: "sonio",
+    index: "02",
+    title: "Sonio",
+    category: "Mobile App",
+    year: "2025",
+    desc: "A music streaming app built in React Native, in the spirit of Spotify. Browse, search and build playlists, with a smooth full-screen player and background playback.",
+    tags: ["React Native", "Expo", "Node.js"],
+    visual: "phone",
+    color: "#7cf2c4",
+    url: GITHUB,
+  },
+  {
+    id: "american-ocean",
+    index: "03",
+    title: "American Ocean",
+    category: "3D Fashion E-Commerce",
+    year: "2025",
+    desc: "A clothing brand storefront built with AI-assisted 3D. Products float in an animated scene, and scroll-driven motion turns browsing the collection into a small story.",
+    tags: ["React", "Three.js", "GSAP", "AI"],
+    visual: "fashion",
+    brand: "AMERICAN\nOCEAN",
+    color: "#6fb8ff",
+    url: GITHUB,
+  },
+  {
+    id: "peso-casual",
+    index: "04",
+    title: "Peso Casual",
+    category: "3D Fashion E-Commerce",
+    year: "2025",
+    desc: "An animated 3D storefront for a casual-wear label. AI-generated 3D assets, interactive product views and cinematic scroll transitions bring the collection to life.",
+    tags: ["React", "Three.js", "Framer Motion", "AI"],
+    visual: "fashion",
+    brand: "PESO\nCASUAL",
+    color: "#ffb86b",
+    url: GITHUB,
+  },
+  {
+    id: "spbilling",
+    index: "05",
+    title: "SP Billing",
+    category: "Billing Software",
+    year: "2024",
+    desc: "Billing and inventory software for a gas cylinder agency. It handles invoices, customer records, cylinder stock (filled and empty) and daily sales reports.",
+    tags: ["React", "Node.js", "Database"],
+    visual: "invoice",
+    color: "#ff7a6b",
+    url: GITHUB,
+  },
+];
+
+export const earlier = [
+  { title: "E-Commerce UI", tags: "HTML · CSS · Figma", img: "/figma.png", url: GITHUB },
+  { title: "Bootstrap Demo", tags: "HTML · CSS · Bootstrap", img: "/boots.png", url: GITHUB },
+  { title: "Elegance Site", tags: "HTML · CSS", img: "/elegance.png", url: GITHUB },
+  { title: "Portfolio v1", tags: "React", img: "/port.png", url: GITHUB },
+];
